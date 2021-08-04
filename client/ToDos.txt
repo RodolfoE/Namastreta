@@ -1,0 +1,4 @@
+1. Watch the Stripe Payments videos
+2. Add the autentication with Google on firebase
+3. Use mobile responsiveness
+4. Create page that only adm have rights, and there lists the items bought
