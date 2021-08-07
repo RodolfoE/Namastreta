@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import ItensBought from './pages/items_bought/items_bought';
 import CheckoutPage from './pages/checkout/checkout.component';
 import Header from './components/header/header.component';
 
@@ -22,9 +23,9 @@ const App = ({ checkUserSession, currentUser }) => {
     checkUserSession();
     (() => {
       //addCollectionAndDocuments('collections', Object.keys(SHOP_DATA).map(x => SHOP_DATA[x]).map(({title, items}) => ({title, items})))
-    }
-      
+    } 
     )();
+    console.log(currentUser);
   }, [checkUserSession]);
 
   return (
@@ -35,13 +36,11 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
         <Route exact path='/checkout' component={CheckoutPage} />
-        <Route
-          exact
-          path='/signin'
-          render={() =>
-            currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
-          }
-        />
+        <Route exact path='/signin' render={() => currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />}/>
+        {
+          currentUser &&
+          <Route exact path='/itens_bought' render={() => currentUser && currentUser.isAdm ? <ItensBought /> : <Redirect to='/' />}/> 
+        } 
       </Switch>
     </div>
   );

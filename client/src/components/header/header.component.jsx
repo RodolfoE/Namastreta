@@ -19,7 +19,6 @@ import {
 
 const Header = ({ currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
-    Me Gusta Mucho Usted, Thayane, sua linda
     <LogoContainer to='/'>
       <Logo className='logo' />
     </LogoContainer>

@@ -18,6 +18,8 @@ import {
   getCurrentUser
 } from '../../firebase/firebase.utils';
 
+import { IsUserAdm } from './userUtils'
+
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
     const userRef = yield call(
@@ -26,7 +28,11 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
       additionalData
     );
     const userSnapshot = yield userRef.get();
-    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    const isAdm = yield call(
+      IsUserAdm,
+      userSnapshot.id
+    )
+    yield put(signInSuccess({ id: userSnapshot.id, isAdm, ...userSnapshot.data() }));
   } catch (error) {
     yield put(signInFailure(error));
   }

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const adms = require('./IdsAdmUsers');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -24,6 +25,15 @@ app.listen(port, error => {
   if (error) throw error;
   console.log('Server running on port ' + port);
 });
+
+app.get('/isUserAdm', (req, res) => {
+  try{
+    const { guid }  = req.query;
+    res.status(200).send({ isAdm: adms.filter(admGuids => admGuids === guid).length > 0})
+  } catch (err){
+    console.log(req);
+  }
+})
 
 app.post('/payment', (req, res) => {
   const body = {

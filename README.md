@@ -1,10 +1,7 @@
-### first configs ###
-Adicione a app no Github
-heroku create namastreta --buildpack https://github.com/mars/create-react-app-buildpack.git
-heroku git:remote -a namastreta -> namastreta é o nome do repositorio novo no heroku
-
-1. Use the Windows WSL, and the nodejs version described in the package.json
-2. Update your git repository (no yarn.lockfile, pls)
-3. Then push to the heroku repository: git push heroku master
-    * login to Heroku, if not done yet
-4. Add the autentication with Google on firebase
+heroko apps -> show the apps you have on heroku
+heroku git:remote -a namastreta =>
+    set git remote heroku to https://github.com/RodolfoE/Namastreta.git
+heroku buildpacks -> shows the buildpacks currently on
+heroku buildpacks:remove {name grapped on previous command}   | heroku buildpacks:remove https://github.com/mars/create-react-app-buildpack.git
+* delete the yarn.lockfile
+* git push heroku master
