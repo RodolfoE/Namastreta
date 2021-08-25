@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import { boughtItem } from '../../redux/items_bought/items_bought.actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectItemsBought } from '../../redux/items_bought/items_bought.selectors';
 
-const ItemsBought = ({ boughtItem, currentUser }) => {
+const ItemsBought = ({ boughtItem, currentUser, itemsFetched }) => {
+    useEffect(() => { 
+        boughtItem(currentUser.id); 
+    }, []);
 
-    useEffect(() => { boughtItem(currentUser.id); }, []);
-
-    return 'we are the champions';
+    return (itemsFetched && itemsFetched.map(x => JSON.stringify(x))) || '';
 }
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    itemsFetched: selectItemsBought
 }); 
 
 const mapDispatchToProps = dispatch => ({

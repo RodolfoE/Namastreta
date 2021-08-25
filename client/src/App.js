@@ -25,7 +25,6 @@ const App = ({ checkUserSession, currentUser }) => {
       //addCollectionAndDocuments('collections', Object.keys(SHOP_DATA).map(x => SHOP_DATA[x]).map(({title, items}) => ({title, items})))
     } 
     )();
-    console.log(currentUser);
   }, [checkUserSession]);
 
   return (
