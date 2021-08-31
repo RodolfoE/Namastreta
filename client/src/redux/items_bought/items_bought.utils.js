@@ -1,10 +1,9 @@
 import { firestore, addCollectionAndDocuments } from '../../firebase/firebase.utils';
 
-export const fetchBoughtItemsAsync = async (userId) => {
+export const fetchBoughtItemsAsync = async () => {
     try {
         const ItemsBoughtRef = await firestore
             .collection("items_bought")
-            //.where("UserId", "==", userId)
             .get();
 
         return ItemsBoughtRef.docs.map((doc) => doc.data());

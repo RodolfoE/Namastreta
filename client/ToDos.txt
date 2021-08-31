@@ -1,8 +1,21 @@
 1. Watch the Stripe Payments videos 
 2. Add the autentication with Google on firebase (Feito) 
     a. Go to the console, sign-in methods, authorazied domains and add there
-4. Create page that only adm have rights, and there lists the items bought
-    . store items_bought
-    . create page
-    . integrate
-    . have only adm see 
+
+ITEMS_BOUGHT:
+    Have a functional page that shows the items items_bought
+     filtered
+         * by date
+         * yet to be posted
+         * Approved Payment
+
+     1. Create page that only adm have rights, and there lists the items bought
+        1. store items_bought
+        2. create page
+        3. integrate
+        4. have only adm see 
+
+CHECKOUT: 
+    Show the user items he's buying, the price for the correios. Exibir possibilidade de usuário pagar com
+    stripe ou por PIX
+        PIX: redirecionar usuário para WhatsApp e enviar código do checkout

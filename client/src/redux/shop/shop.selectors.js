@@ -28,3 +28,8 @@ export const selectIsCollectionsLoaded = createSelector(
   [selectShop],
   shop => shop && !!shop.collections
 );
+
+export const selectHoleCollections = createSelector(
+  [selectShop],
+  shop => shop && shop.collections
+);
