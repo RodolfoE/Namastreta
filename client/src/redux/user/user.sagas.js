@@ -8,14 +8,16 @@ import {
   signOutSuccess,
   signOutFailure,
   signUpSuccess,
-  signUpFailure
+  signUpFailure,
+  userById
 } from './user.actions';
 
 import {
   auth,
   googleProvider,
   createUserProfileDocument,
-  getCurrentUser
+  getCurrentUser,
+  firestore
 } from '../../firebase/firebase.utils';
 
 import { IsUserAdm } from './userUtils'
@@ -84,6 +86,19 @@ export function* signUp({ payload: { email, password, displayName } }) {
   }
 }
 
+/** @param {int or array of int} id */
+export function* getUserById({payload: { id }}){
+  if (Array.isArray(id)){
+    const userRef = firestore.collection('users');
+    id.forEach(x => userRef.where('id', '==', x));
+    const snapshot = yield userRef.get();
+    let data = snapshot.docs.map(x => x.data());
+
+
+    yield put(userById(data))
+  }
+}
+
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
   yield getSnapshotFromUserAuth(user, additionalData);
 }
@@ -112,6 +127,10 @@ export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+export function* onGetUserById(id) {
+  yield takeLatest(UserActionTypes.GET_USER_BY_ID, getUserById)
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
@@ -119,6 +138,7 @@ export function* userSagas() {
     call(onCheckUserSession),
     call(onSignOutStart),
     call(onSignUpStart),
-    call(onSignUpSuccess)
+    call(onSignUpSuccess),
+    call(onGetUserById)
   ]);
 }

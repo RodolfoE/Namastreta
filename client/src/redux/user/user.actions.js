@@ -50,3 +50,8 @@ export const signUpFailure = error => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error
 });
+
+export const userById = (users) => ({
+    type: UserActionTypes.GET_USER_BY_ID,
+    payload: { id: users}
+});

@@ -8,13 +8,15 @@ import { selectItemsBought } from '../../redux/items_bought/items_bought.selecto
 import List from '../../components/list'
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 import { selectHoleCollections, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
+import { userById } from '../../redux/user/user.actions'
 
-const ItemsBought = ({ boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading }) => {
+const ItemsBought = ({ boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading, getUserById }) => {
     
     useEffect(() => { 
-    
+        console.log(currentUser)
         boughtItem(currentUser.id); 
         fetchCollectionsStart();
+        console.log(getUserById(['hqMsIjekD2OichL9YidY8AAXdn73']));
         console.log(isLoading, itemsFetched, collection)
         if (!isLoading){
             itemsFetched.forEach(({cartItem}) => console.log(syncIdItemsWithObject(cartItem, collection)))
@@ -30,7 +32,7 @@ const ItemsBought = ({ boughtItem, currentUser, itemsFetched, fetchCollectionsSt
             })
         })
         return objItemsBought;
-    } 
+    }
 
     return <div>
         {
@@ -41,7 +43,8 @@ const ItemsBought = ({ boughtItem, currentUser, itemsFetched, fetchCollectionsSt
 
 const mapDispatchToProps = dispatch => ({
     boughtItem: (userId) => dispatch(boughtItem(userId)),
-    fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
+    fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
+    getUserById: (user) => dispatch(userById(user))
 });
 
 const mapStateToProps = createStructuredSelector({

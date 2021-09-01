@@ -2,7 +2,8 @@ import UserActionTypes from './user.types';
 
 const INITIAL_STATE = {
   currentUser: null,
-  error: null
+  error: null,
+  retrievedUsers: []
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -26,6 +27,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload
       };
+    case UserActionTypes.GET_USER_BY_ID:
+      return {
+        ...state,
+        retrievedUsers: action.payload
+      }
     default:
       return state;
   }
