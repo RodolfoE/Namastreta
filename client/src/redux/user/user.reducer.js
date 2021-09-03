@@ -27,7 +27,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload
       };
-    case UserActionTypes.GET_USER_BY_ID:
+    case UserActionTypes.GET_USER_BY_ID_SUCCESS:
       return {
         ...state,
         retrievedUsers: action.payload

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
 import { boughtItem } from '../../redux/items_bought/items_bought.actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -10,18 +9,16 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 import { selectHoleCollections, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
 import { userById } from '../../redux/user/user.actions'
 
-const ItemsBought = ({ boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading, getUserById }) => {
-    
+const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading, getUserById }) => {
     useEffect(() => { 
-        console.log(currentUser)
         boughtItem(currentUser.id); 
         fetchCollectionsStart();
-        console.log(getUserById(['hqMsIjekD2OichL9YidY8AAXdn73']));
-        console.log(isLoading, itemsFetched, collection)
-        if (!isLoading){
+        getUserById(['hqMsIjekD2OichL9YidY8AAXdn73']);
+        
+        if (!isLoading)            
             itemsFetched.forEach(({cartItem}) => console.log(syncIdItemsWithObject(cartItem, collection)))
-        }
     }, [isLoading]);
+
 
     const syncIdItemsWithObject = (idItems, collection) => {
         const objItemsBought = [];
@@ -51,7 +48,8 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     itemsFetched: selectItemsBought,
     isLoading: state => !selectIsCollectionsLoaded(state),
-    collection: selectHoleCollections
+    collection: selectHoleCollections,
+    retrievedUsers: (state) => state && state.user && state.user.retrievedUsers
 }); 
 
 export default connect(

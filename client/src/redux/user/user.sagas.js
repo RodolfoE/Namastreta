@@ -9,7 +9,8 @@ import {
   signOutFailure,
   signUpSuccess,
   signUpFailure,
-  userById
+  userById,
+  userByIdSuccess
 } from './user.actions';
 
 import {
@@ -93,9 +94,7 @@ export function* getUserById({payload: { id }}){
     id.forEach(x => userRef.where('id', '==', x));
     const snapshot = yield userRef.get();
     let data = snapshot.docs.map(x => x.data());
-
-
-    yield put(userById(data))
+    yield put(userByIdSuccess(data))
   }
 }
 

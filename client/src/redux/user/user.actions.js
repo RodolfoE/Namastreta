@@ -55,3 +55,8 @@ export const userById = (users) => ({
     type: UserActionTypes.GET_USER_BY_ID,
     payload: { id: users}
 });
+
+export const userByIdSuccess = (users) => ({
+  type: UserActionTypes.GET_USER_BY_ID_SUCCESS,
+  payload: users
+});
