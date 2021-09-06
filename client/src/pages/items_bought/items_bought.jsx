@@ -10,30 +10,61 @@ import { selectHoleCollections, selectIsCollectionsLoaded } from '../../redux/sh
 import { userById } from '../../redux/user/user.actions'
 
 const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading, getUserById }) => {
+    const [list, setList] = useState([]);
+    
     useEffect(() => { 
         boughtItem(currentUser.id); 
         fetchCollectionsStart();
         getUserById(['hqMsIjekD2OichL9YidY8AAXdn73']);
-        
-        if (!isLoading)            
-            itemsFetched.forEach(({cartItem}) => console.log(syncIdItemsWithObject(cartItem, collection)))
     }, [isLoading]);
 
+    useEffect(() => {
+        if (!isLoading && retrievedUsers.length)
+            setList(itemsFetched.map((cartItem) => console.log(normalizeToList(syncItemsWithUsers(retrievedUsers, syncIdItemsWithObject(cartItem, collection))))));            
+    }, [retrievedUsers, isLoading]);
 
-    const syncIdItemsWithObject = (idItems, collection) => {
+    const normalizeToList = (items) => {
+        return items.map(({ user, name, price}) => ({
+            'Nome': user.name,
+            'Email': user.email,
+            'Produto': name,
+            'Preço': price
+        }));
+    }
+
+    const syncItemsWithUsers = (users, items) => {
+        console.log(users, items);
+        return items.map(item => ({ ...item, user: users.find(us => us.id == item.userId)}))
+    }
+
+    const syncIdItemsWithObject = (ItemsBought, collection) => {
         const objItemsBought = [];
         Object.keys(collection).map(x => collection[x]).forEach(({items}) => {
             items.forEach(item => {
-                if (idItems.filter(idItem => (idItem == item.id)).length > 0)
-                    objItemsBought.push(item);
+                if (ItemsBought.cartItem.filter(idItem => (idItem == item.id)).length > 0)
+                    objItemsBought.push({ ...item, userId: ItemsBought.userId });
             })
         })
         return objItemsBought;
     }
 
+    const getColumnsUsed = () => ([
+        {attr: 'Nome'},
+        {attr: 'Email'},
+        {attr: 'Produto'},
+        {attr: 'Preço'},
+    ])
+
+    const getHeader = () => ([
+        { text: 'Nome' },
+        { text: 'Email' },
+        { text: 'Produto' },
+        { text: 'Preço' }
+    ])
+
     return <div>
         {
-            itemsFetched && <List header={[{ text: 'Usuario' }]} dataSource={itemsFetched} toRender={[{attr: 'userId'}]}/>
+            list.length && <List header={getHeader()} dataSource={itemsFetched} toRender={getColumnsUsed()}/>
         }
     </div> 
 }

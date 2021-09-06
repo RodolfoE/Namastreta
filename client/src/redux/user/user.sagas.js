@@ -93,7 +93,7 @@ export function* getUserById({payload: { id }}){
     const userRef = firestore.collection('users');
     id.forEach(x => userRef.where('id', '==', x));
     const snapshot = yield userRef.get();
-    let data = snapshot.docs.map(x => x.data());
+    let data = snapshot.docs.map(x =>  ({ ...x.data(), id: x.id}) );
     yield put(userByIdSuccess(data))
   }
 }

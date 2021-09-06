@@ -1,18 +1,14 @@
 import ItemsBoughtTypes from './items_bought.types'
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = [];
 
 const ItemsBoughtReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
         case ItemsBoughtTypes.SET_CURRENT_BUYINGS:
             break;
         case ItemsBoughtTypes.FINISHED_FETCH_BOUGHT:  
-            return {
-                ...state,
-                items_bought: action.payload
-            }
-            break;
-            default: return state;
+            return action.payload;
+        default: return state;
     }
 }
 
