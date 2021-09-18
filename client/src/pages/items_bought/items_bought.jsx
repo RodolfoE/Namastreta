@@ -7,11 +7,16 @@ import { selectItemsBought } from '../../redux/items_bought/items_bought.selecto
 import List from '../../components/list'
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 import { selectHoleCollections, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
-import { userById } from '../../redux/user/user.actions'
+import { userById } from '../../redux/user/user.actions';
+import { Modal, Button } from 'react-bootstrap';
 
 const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fetchCollectionsStart, collection, isLoading, getUserById }) => {
     const [list, setList] = useState([]);
-    
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
     useEffect(() => { 
         boughtItem(currentUser.id); 
         fetchCollectionsStart();
@@ -20,22 +25,33 @@ const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fe
 
     useEffect(() => {
         if (!isLoading && retrievedUsers.length)
-            setList(itemsFetched.map((cartItem) => console.log(normalizeToList(syncItemsWithUsers(retrievedUsers, syncIdItemsWithObject(cartItem, collection))))));            
+            setList(normalizeToList(itemsFetched.map((cartItem) => syncItemsWithUsers(retrievedUsers, syncIdItemsWithObject(cartItem, collection)))));            
     }, [retrievedUsers, isLoading]);
 
-    const normalizeToList = (items) => {
-        return items.map(({ user, name, price}) => ({
-            'Nome': user.name,
-            'Email': user.email,
-            'Produto': name,
-            'Preço': price
-        }));
+
+    const handleEmail = (email) => {
+        return <span style={{cursor: 'pointer'}} onClick={handleShow}>{email}</span>
     }
 
-    const syncItemsWithUsers = (users, items) => {
-        console.log(users, items);
-        return items.map(item => ({ ...item, user: users.find(us => us.id == item.userId)}))
+    const normalizeToList = (items) => {
+        console.log(items, '33')
+        const listItems = [];  
+        items.map(item =>
+            item.map(({ user, name, price}) => listItems.push({
+                'Nome': handleEmail(user.displayName),
+                'Email': handleEmail(user.email),
+                'Produto': name,
+                'Preço': 'R$' + price
+            }))
+        )
+        return listItems;
     }
+
+    const syncItemsWithUsers = (users, items) =>{
+        const itemsWithUsers = items.map(item => ({ ...item, user: users.find(us => us.id == item.userId)}))
+        console.log(itemsWithUsers, '37')
+        return itemsWithUsers;
+    } 
 
     const syncIdItemsWithObject = (ItemsBought, collection) => {
         const objItemsBought = [];
@@ -45,6 +61,7 @@ const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fe
                     objItemsBought.push({ ...item, userId: ItemsBought.userId });
             })
         })
+        console.log(objItemsBought, '45')
         return objItemsBought;
     }
 
@@ -64,8 +81,18 @@ const ItemsBought = ({ retrievedUsers, boughtItem, currentUser, itemsFetched, fe
 
     return <div>
         {
-            list.length && <List header={getHeader()} dataSource={itemsFetched} toRender={getColumnsUsed()}/>
+            list.length && <List header={getHeader()} dataSource={list} toRender={getColumnsUsed()}/>
         }
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body> I will not close if you click outside me. Don't even try to press escape key.</Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>Close</Button>
+                <Button variant="primary">Understood</Button>
+            </Modal.Footer>
+         </Modal>
     </div> 
 }
 

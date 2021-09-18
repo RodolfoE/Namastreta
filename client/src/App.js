@@ -18,6 +18,8 @@ import SHOP_DATA  from './redux/shop/shop.data';
 
 import { addCollectionAndDocuments }  from './firebase/firebase.utils';
 
+import Contact from './pages/Contact/contact'
+
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
     checkUserSession();
@@ -36,11 +38,14 @@ const App = ({ checkUserSession, currentUser }) => {
         <Route path='/shop' component={ShopPage} />
         <Route exact path='/checkout' component={CheckoutPage} />
         <Route exact path='/signin' render={() => currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />}/>
+        <Route exact path='/contact' component={Contact}/>
         {
           currentUser &&
           <Route exact path={['/itens_bought', '/items_bought']} render={() => currentUser && currentUser.isAdm ? <ItensBought /> : <Redirect to='/' />}/> 
         } 
       </Switch>
+
+    <span>Criado com &#9829; por <a style={{cursor: 'pointer'}} href='https://github.com/RodolfoE' target="_blank">Rodolfo Eliezer</a></span>
     </div>
   );
 };

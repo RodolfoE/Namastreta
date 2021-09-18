@@ -1,9 +1,9 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
 
 const List = ({header, dataSource, toRender}) => {
-
-    
-    return <table>
+   console.log(header, dataSource, toRender)
+   return <Table striped bordered hover>
         <thead>
             <tr>
                 {
@@ -21,7 +21,7 @@ const List = ({header, dataSource, toRender}) => {
                 )
             }
         </tbody>
-    </table>
+    </Table>
 }
 
 export default List;
