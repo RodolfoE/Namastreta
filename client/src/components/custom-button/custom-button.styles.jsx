@@ -42,6 +42,19 @@ const getButtonStyles = props => {
   return props.inverted ? invertedButtonStyles : buttonStyles;
 };
 
+const marginClass = css`
+  margin-left: 15px
+`
+
+const setClasses = props => {
+  if (!props)
+    return;
+
+  const { classes } = props;
+    
+  return classes ? marginClass : '';
+}
+
 export const CustomButtonContainer = styled.button`
   min-width: 165px;
   width: auto;
@@ -58,4 +71,5 @@ export const CustomButtonContainer = styled.button`
   justify-content: center;
 
   ${getButtonStyles}
+  ${setClasses}
 `;

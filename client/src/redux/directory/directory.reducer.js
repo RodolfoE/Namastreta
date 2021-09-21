@@ -1,36 +1,52 @@
 const INITIAL_STATE = {
   sections: [
     {
-      title: 'hats',
-      imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+      title: 'Blusas',
+      imageUrl: 'https://i.ibb.co/BnnLcMj/blusa-2.jpg',
       id: 1,
-      linkUrl: 'shop/hats'
+      linkUrl: 'shop/blusas'
     },
     {
-      title: 'jackets',
-      imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+      title: 'Blusas',
+      imageUrl: 'https://i.ibb.co/vhBp7DT/blusa-3.jpg',
+      id: 22,
+      linkUrl: 'shop/blusas'
+    },
+    {
+      title: 'Blusas',
+      imageUrl: 'https://i.ibb.co/5kZGFtJ/blusa-4.jpg',
       id: 2,
-      linkUrl: 'shop/jackets'
+      linkUrl: 'shop/blusas'
     },
     {
-      title: 'sneakers',
-      imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+      title: 'Blusas',
+      imageUrl: 'https://i.ibb.co/YhpMMCB/blusa-5.jpg',
       id: 3,
-      linkUrl: 'shop/sneakers'
+      linkUrl: 'shop/blusas'
     },
     {
-      title: 'womens',
-      imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-      size: 'large',
+      title: 'Blusas',
+      imageUrl: 'https://i.ibb.co/Ngh69MZ/blusa.jpg',
+      id: 33,
+      linkUrl: 'shop/blusas'
+    },
+    {
+      title: 'Bones',
+      imageUrl: 'https://i.ibb.co/swk0QDb/bone-2.jpg',
       id: 4,
-      linkUrl: 'shop/womens'
+      linkUrl: 'shop/bones'
     },
     {
-      title: 'mens',
-      imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-      size: 'large',
+      title: 'Bones',
+      imageUrl: 'https://i.ibb.co/XXT74p7/bone.jpg',
       id: 5,
-      linkUrl: 'shop/mens'
+      linkUrl: 'shop/bones'
+    },
+    {
+      title: 'Camisetas',
+      imageUrl: 'https://i.ibb.co/Dr9SmkX/camiseta.png',
+      id: 6,
+      linkUrl: 'shop/camisetas'
     }
   ]
 };
@@ -43,3 +59,4 @@ const directoryReducer = (state = INITIAL_STATE, action) => {
 };
 
 export default directoryReducer;
+
