@@ -45,7 +45,7 @@ const App = ({ checkUserSession, currentUser }) => {
         } 
       </Switch>
 
-    <span>Criado com &#9829; por <a style={{cursor: 'pointer'}} href='https://github.com/RodolfoE' target="_blank">Rodolfo Eliezer</a></span>
+    <div className='mt-3'>Criado com &#9829; por <a style={{cursor: 'pointer'}} href='https://github.com/RodolfoE' target="_blank">Rodolfo Eliezer</a></div>
     </div>
   );
 };

@@ -14,6 +14,26 @@ export const CheckoutPageContainer = styled.div`
   }
 `;
 
+export const Descricao = styled.div`
+  width: 150px
+`;
+
+export const AbsolutoX = styled.div`
+  position: absolute;
+  right: 10px;
+  font-size: 20px
+`
+
+export const ImageContainer = styled.div`
+  text-align: center;
+  height: 250px;
+  padding: 2px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 export const CheckoutHeaderContainer = styled.div`
   width: 100%;
   height: 40px;
@@ -43,3 +63,28 @@ export const WarningContainer = styled.div`
   font-size: 24px;
   color: red;
 `;
+
+export const QuantityContainer = styled.div`
+  display: flex;
+  span {
+    margin: 0 10px;
+  }
+
+  div {
+    cursor: pointer;
+  }
+`;
+
+export const Greater = styled.div`
+  border: solid;
+  width: 30px;
+  border-radius: 23px;
+  text-align: center;
+`
+
+export const Less = styled.div`
+  border: solid;
+  width: 30px;
+  border-radius: 23px;
+  text-align: center;
+`
